@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/*******************************************************************************
+ * Copyright (c) 2000, 2013 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - initial API and implementation
+ *******************************************************************************/
+-->
+
+<templates>
+
+<template name="for" description="%Templates.for_array" id="org.summer.sdt.ui.templates.for_array" context="lark-statements" enabled="true" autoinsert="false">for (int ${index} = 0; ${index} &lt; ${array}.length; ${index}++) {
+	${line_selection}${cursor}
+}</template>
+
+<template name="for" description="%Templates.for_temp" id="org.summer.sdt.ui.templates.for_temp" context="lark-statements" enabled="true" autoinsert="false">for (int ${index} = 0; ${index} &lt; ${array}.length; ${index}++) {
+	${array_type} ${array_element} = ${array}[${index}];
+	${cursor}
+}</template>
+
+<template name="for" description="%Templates.for_collection" id="org.summer.sdt.ui.templates.for_collection" context="lark-statements" enabled="true" autoinsert="false">for (${iteratorType:newType(java.util.Iterator)} ${iterator} = ${collection}.iterator(); ${iterator}.hasNext(); ) {
+	${type:elemType(collection)} ${name:newName(type)} = (${type}) ${iterator}.next();
+	${cursor}
+}</template>
+
+<template name="foreach" description="%Templates.for_iterable" id="org.summer.sdt.ui.templates.for_iterable" context="lark-statements" enabled="true" autoinsert="false">for (${iterable_type} ${iterable_element} : ${iterable}) {
+	${cursor}
+}</template>
+
+<template name="while" description="%Templates.while_enumeration" id="org.summer.sdt.ui.templates.while_enumeration" context="lark-statements" enabled="true" autoinsert="false">while (${en:var(java.util.Enumeration)}.hasMoreElements()) {
+	${type:argType(en)} ${elem:newName(type)} = (${type}) ${en}.nextElement();
+	${cursor}
+}</template>
+
+<template name="while" description="%Templates.while_iterator" id="org.summer.sdt.ui.templates.while_iterator" context="lark-statements" enabled="true" autoinsert="false">while (${it:var(java.util.Iterator)}.hasNext()) {
+	${type:argType(it)} ${elem:newName(type)} = (${type}) ${it}.next();
+	${cursor}
+}</template>
+
+<template name="do" description="%Templates.do" id="org.summer.sdt.ui.templates.do" context="lark-statements" enabled="true" autoinsert="false">do {
+	${line_selection}${cursor}
+} while (${condition:var(boolean)});</template>
+
+<template name="switch" description="%Templates.switch" id="org.summer.sdt.ui.templates.switch" context="lark-statements" enabled="true" autoinsert="false">switch (${key}) {
+	case ${value}:
+		${cursor}
+		break;
+
+	default:
+		break;
+}</template>
+
+<template name="if" description="%Templates.if" id="org.summer.sdt.ui.templates.if" context="lark-statements" enabled="true" autoinsert="false">if (${condition:var(boolean)}) {
+	${line_selection}${cursor}
+}</template>
+
+<template name="ifelse" description="%Templates.ifelse" id="org.summer.sdt.ui.templates.ifelse" context="lark-statements" enabled="true" autoinsert="false">if (${condition:var(boolean)}) {
+	${cursor}
+} else {
+	
+}</template>
+
+<template name="elseif" description="%Templates.elseif" id="org.summer.sdt.ui.templates.elseif" context="lark-statements" enabled="true" autoinsert="false">else if (${condition:var(boolean)}) {
+	${cursor}
+}</template>
+
+<template name="else" description="%Templates.else" id="org.summer.sdt.ui.templates.else" context="lark-statements" enabled="true" autoinsert="false">else {
+	${cursor}
+}</template>
+
+<template name="try" description="%Templates.try" id="org.summer.sdt.ui.templates.try" context="lark-statements" enabled="true" autoinsert="false">try {
+	${line_selection}${cursor}
+} catch (${Exception} ${exception_variable_name}) {
+	// ${todo}: handle exception
+}</template>
+
+<template name="catch" description="%Templates.catch" id="org.summer.sdt.ui.templates.catch" context="lark-statements" enabled="true" autoinsert="false">catch (${Exception} ${exception_variable_name}) {
+	${cursor}// ${todo}: handle exception
+}</template>
+
+<template name="main" description="%Templates.main" id="org.summer.sdt.ui.templates.main" context="lark-members" enabled="true" autoinsert="false">public static void main(String[] args) {
+	${cursor}
+}</template>
+
+<template name="public_method" description="%Templates.public_method" id="org.summer.sdt.ui.templates.public_method" context="lark-members" enabled="true" autoinsert="false">public ${return_type} ${name}(${}) {
+	${cursor}
+}</template>
+
+<template name="public_static_method" description="%Templates.public_static_method" id="org.summer.sdt.ui.templates.public_static_method" context="lark-members" enabled="true" autoinsert="false">public static ${return_type} ${name}(${}) {
+	${cursor}
+}</template>
+
+<template name="protected_method" description="%Templates.protected_method" id="org.summer.sdt.ui.templates.protected_method" context="lark-members" enabled="true" autoinsert="false">protected ${return_type} ${name}(${}) {
+	${cursor}
+}</template>
+
+<template name="private_method" description="%Templates.private_method" id="org.summer.sdt.ui.templates.private_method" context="lark-members" enabled="true" autoinsert="false">private ${return_type} ${name}(${}) {
+	${cursor}
+}</template>
+
+<template name="private_static_method" description="%Templates.private_static_method" id="org.summer.sdt.ui.templates.private_static_method" context="lark-members" enabled="true" autoinsert="false">private static ${return_type} ${name}(${}) {
+	${cursor}
+}</template>
+
+<template name="instanceof" description="%Templates.instanceof" id="org.summer.sdt.ui.templates.instanceof" context="lark-statements" enabled="true" autoinsert="false">if (${name:var} instanceof ${type}) {
+	${type} ${new_name} = (${type})${name};
+	${cursor}
+}</template>
+
+<template name="cast" description="%Templates.cast" id="org.summer.sdt.ui.templates.cast" context="lark-statements" enabled="true" autoinsert="false">${type} ${new_name} = (${type}) ${name};</template>
+
+<template name="new" description="%Templates.new" id="org.summer.sdt.ui.templates.new" context="lark" enabled="true" autoinsert="false">${type} ${name} = new ${type}(${arguments});</template>
+
+<template name="lazy" description="%Templates.lazy" id="org.summer.sdt.ui.templates.lazy" context="lark-statements" enabled="true" autoinsert="false">if (${name:var} == null) {
+	${name} = new ${type}(${arguments});
+	${cursor}
+}
+
+return ${name};</template>
+
+<template name="toarray" description="%Templates.toarray" id="org.summer.sdt.ui.templates.toarray" context="lark" enabled="true" autoinsert="false">(${type:elemType(collection)}[]) ${collection}.toArray(new ${type}[${collection}.size()])</template>
+
+<template name="sysout" description="%Templates.sysout" id="org.summer.sdt.ui.templates.sysout" context="lark-statements" enabled="true" autoinsert="true">System.out.println(${word_selection}${});${cursor}</template>
+
+<template name="syserr" description="%Templates.syserr" id="org.summer.sdt.ui.templates.syserr" context="lark-statements" enabled="true" autoinsert="true">System.err.println(${word_selection}${});${cursor}</template>
+
+<template name="systrace" description="%Templates.systrace" id="org.summer.sdt.ui.templates.systrace" context="lark-statements" enabled="true" autoinsert="true">System.out.println(&quot;${enclosing_type}.${enclosing_method}()&quot;);</template>
+
+<template name="&lt;code&gt;" description="%Templates.code_tag" id="org.summer.sdt.ui.templates.code_tag" context="larkdoc" enabled="true" autoinsert="true">&lt;code&gt;${word_selection}${}&lt;/code&gt;${cursor}</template>
+
+<template name="null" description="%Templates.code_tag_null" id="org.summer.sdt.ui.templates.code_tag_null" context="javadoc" enabled="true" autoinsert="true">&lt;code&gt;null&lt;/code&gt;</template>
+
+<template name="true" description="%Templates.code_tag_true" id="org.summer.sdt.ui.templates.code_tag_true" context="javadoc" enabled="true" autoinsert="true">&lt;code&gt;true&lt;/code&gt;</template>
+
+<template name="false" description="%Templates.code_tag_false" id="org.summer.sdt.ui.templates.code_tag_false" context="javadoc" enabled="true" autoinsert="true">&lt;code&gt;false&lt;/code&gt;</template>
+
+<template name="&lt;pre&gt;" description="%Templates.pre_tag" id="org.summer.sdt.ui.templates.pre_tag" context="javadoc" enabled="true" autoinsert="true">&lt;pre&gt;${word_selection}${}&lt;/pre&gt;${cursor}</template>
+
+<template name="&lt;b&gt;" description="%Templates.b_tag" id="org.summer.sdt.ui.templates.b_tag" context="javadoc" enabled="true" autoinsert="true">&lt;b&gt;${word_selection}${}&lt;/b&gt;${cursor}</template>
+
+<template name="&lt;i&gt;" description="%Templates.i_tag" id="org.summer.sdt.ui.templates.i_tag" context="javadoc" enabled="true" autoinsert="true">&lt;i&gt;${word_selection}${}&lt;/i&gt;${cursor}</template>
+
+<template name="@author" description="%Templates.author" id="org.summer.sdt.ui.templates.author" context="javadoc" enabled="true" autoinsert="true">@author ${user}</template>
+
+<template name="while" description="%Templates.while_condition" id="org.summer.sdt.ui.templates.while_condition" context="lark-statements" enabled="true" autoinsert="false">while (${condition:var(boolean)}) {
+	${line_selection}${cursor}
+}</template>
+
+<template name="test3" description="%Templates.test" id="org.summer.sdt.ui.templates.test" context="lark-members" enabled="true" autoinsert="false">public void test${name}() throws Exception {
+	${cursor}
+}</template>
+
+<template name="test" description="%Templates.test_junit4" id="org.summer.sdt.ui.templates.test_junit4" context="lark-members" enabled="true" autoinsert="false">@${testType:newType(org.junit.Test)}
+public void ${testName}() throws Exception {
+	${staticImport:importStatic('org.junit.Assert.*')}${cursor}
+}</template>
+
+<template name="nls" description="%Templates.non-nls" id="org.summer.sdt.ui.templates.non-nls" context="lark" enabled="true" autoinsert="false">//$$NON-NLS-${N}$$</template>
+
+<template name="fall-through" description="%Templates.fall-through" id="org.summer.sdt.ui.templates.fall-through" context="lark-statements" enabled="true" autoinsert="false">//$$FALL-THROUGH$$</template>
+
+<template name="synchronized" description="%Templates.synchronized" id="org.summer.sdt.ui.templates.synchronized" context="lark-statements" enabled="true" autoinsert="false">synchronized (${mutex:var}) {
+	${line_selection}
+}</template>
+
+<template name="runnable" description="%Templates.runnable" id="org.summer.sdt.ui.templates.runnable" context="lark" enabled="true" autoinsert="false">new Runnable() {
+	public void run() {
+		${line_selection}
+	}
+}</template>
+
+<template name="arraymerge" description="%Templates.arraymerge" id="org.summer.sdt.ui.templates.arraymerge" context="lark-statements" enabled="true" autoinsert="false">${array_type}[] ${result:newName(array1)} = new ${array_type}[${array1:array}.length + ${array}.length];
+System.arraycopy(${array1}, 0, ${result}, 0, ${array1}.length);
+System.arraycopy(${array}, 0, ${result}, ${array1}.length, ${array}.length);</template>
+
+<template name="arrayadd" description="%Templates.arrayadd" id="org.summer.sdt.ui.templates.arrayadd" context="lark-statements" enabled="true" autoinsert="false">${array_type}[] ${result:newName(array)} = new ${array_type}[${array}.length + 1];
+System.arraycopy(${array}, 0, ${result}, 0, ${array}.length);
+${result}[${array}.length]= ${var};</template>
+
+<template name="static_final" description="%Templates.static_final" id="org.summer.sdt.ui.templates.static_final" context="lark-members" enabled="true" autoinsert="false">${visibility:link('public ','protected ','','private ')}static final ${type:link(String,int)} ${NAME} = ${expr:link('""',0)};</template>
+
+</templates>

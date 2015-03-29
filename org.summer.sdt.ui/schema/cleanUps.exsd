@@ -1,0 +1,225 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.summer.sdt.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.summer.sdt.ui" id="cleanUps" name="Clean Ups"/>
+      </appInfo>
+      <documentation>
+         This extension point allows to add clean ups that can solve problems in a compilation unit.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="cleanUp" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="cleanUpConfigurationUI" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="cleanUpOptionsInitializer" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a fully qualified identifier of the target extension point
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  an optional identifier of the extension instance
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  an optional name of the extension instance
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="cleanUp">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the fully qualified class name implementing the interface &lt;code&gt;org.summer.sdt.ui.cleanup.ICleanUp&lt;/code&gt;
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.summer.sdt.ui.cleanup.ICleanUp"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a unique id that will be used to identify this clean up
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="runAfter" type="string">
+            <annotation>
+               <documentation>
+                  optional clean up id specifying that this clean up should run after it
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.summer.sdt.ui.cleanUps/cleanUp/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="cleanUpConfigurationUI">
+      <annotation>
+         <documentation>
+            A clean up configuration UI for the given clean up kind. Each contributed clean up &lt;strong&gt;must at least provide UI that allows to disable it&lt;/strong&gt;.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  a name that allows to identify this configuration in the UI
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the fully qualified class name implementing the interface &lt;code&gt;org.summer.sdt.ui.cleanup.ICleanUpConfigurationUI&lt;/code&gt;
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.summer.sdt.ui.cleanup.ICleanUpConfigurationUI"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="cleanUpKind" use="required">
+            <annotation>
+               <documentation>
+                  The kind of clean up this configuration UI configures. Currently only the following are supported:
+&lt;ul&gt;
+ &lt;li&gt;cleanUp: a normal clean up&lt;/li&gt;
+ &lt;li&gt;saveAction: a clean up executed on save in the Java editor&lt;/li&gt;
+&lt;/ul&gt;
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="cleanUp">
+                  </enumeration>
+                  <enumeration value="saveAction">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="cleanUpOptionsInitializer">
+      <annotation>
+         <documentation>
+            An options initializer that returns default options for a clean up kind. Each clean up will consult all contributed initializers to check whether it is enabled.
+         </documentation>
+      </annotation>
+      <complexType>
+         <attribute name="cleanUpKind" use="required">
+            <annotation>
+               <documentation>
+                  The kind of clean up this initializer initializes. Currently only the following are supported:&lt;br&gt;
+&lt;ul&gt;
+ &lt;li&gt;cleanUp: a normal clean up&lt;/li&gt;
+ &lt;li&gt;saveAction: a clean up executed on save in the Java editor&lt;/li&gt;
+&lt;/ul&gt;
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="cleanUp">
+                  </enumeration>
+                  <enumeration value="saveAction">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  the fully qualified class name implementing the interface &lt;code&gt;org.summer.sdt.ui.cleanup.ICleanUpOptionsInitializer&lt;/code&gt;
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.summer.sdt.ui.cleanup.ICleanUpOptionsInitializer"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         3.5
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="examples"/>
+      </appInfo>
+      <documentation>
+         The following is an example of a clean up that updates a copyright on save:
+
+&lt;p&gt;
+&lt;pre&gt;
+   &lt;extension
+         point=&quot;org.summer.sdt.ui.cleanUps&quot;&gt;
+      &lt;cleanUp
+            id=&quot;org.summer.sdt.copyrightsaveaction.copyright_clean_up&quot;
+            class=&quot;org.summer.sdt.ui.internal.copyrightupdater.CopyrightUpdaterCleanUp&quot;&gt;
+      &lt;/cleanUp&gt;
+      
+      &lt;cleanUpOptionsInitializer
+            class=&quot;org.summer.sdt.ui.internal.copyrightupdater.CopyrightOnSaveOptionsInitializer&quot;
+            cleanUpKind=&quot;saveAction&quot;&gt;
+      &lt;/cleanUpOptionsInitializer&gt;
+      
+      &lt;cleanUpConfigurationUI
+            class=&quot;org.summer.sdt.ui.internal.copyrightupdater.CopyrightTabPage&quot;
+            name=&quot;%cleanUpConfigurationUI.name&quot;
+            cleanUpKind=&quot;saveAction&quot;&gt;
+      &lt;/cleanUpConfigurationUI&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
+&lt;/p&gt;
+      </documentation>
+   </annotation>
+
+
+
+   <annotation>
+      <appInfo>
+         <meta.section type="copyright"/>
+      </appInfo>
+      <documentation>
+         Copyright (c) 2008, 2009 IBM Corporation and others.&lt;br&gt;
+All rights reserved. This program and the accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this distribution, and is available at &lt;a href=&quot;http://www.eclipse.org/legal/epl-v10.html&quot;&gt;http://www.eclipse.org/legal/epl-v10.html&lt;/a&gt;
+      </documentation>
+   </annotation>
+
+</schema>
